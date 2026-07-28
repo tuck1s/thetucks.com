@@ -1,14 +1,15 @@
 baseURL: 'https://thetucks.com/'
-languageCode: en-gb
+locale: en-gb
 title: A cornucopia of crafty contrivances
 theme:
-  - github.com/theNewDynamic/gohugo-theme-ananke
+  - github.com/gohugo-ananke/ananke/v2
 author: Steve Tuck
 DefaultContentLanguage: en
 SectionPagesMenu: main
 googleAnalytics: G-C2QYLMPR5V
 enableRobotsTXT: true
-Paginate: 12
+pagination:
+  pagerSize: 12
 copyright: Steve Tuck
 disable_share: true
 sitemap:

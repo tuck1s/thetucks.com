@@ -1,6 +1,6 @@
-module github.com/tuck1s/quickstart
+module github.com/tuck1s/thetucks.com
 
 // remove minor version number as it gives an error on Github Actions
-go 1.21
+go 1.22
 
-require github.com/theNewDynamic/gohugo-theme-ananke v0.0.0-20231122160523-91df000ca827 // indirect
+require github.com/gohugo-ananke/ananke/v2 v2.19.0 // indirect
