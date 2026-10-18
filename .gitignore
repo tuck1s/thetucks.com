@@ -23,5 +23,7 @@ content/post/fibonacci/rust_fib4/rust_fib4_2M.txt
 content/post/fibonacci/rust_fib4/target/**
 content/post/fibonacci/rust_fib4/Cargo.*
 
-
 content/post/fibonacci/.vscode/settings.json
+
+/public/
+/resources/_gen/
