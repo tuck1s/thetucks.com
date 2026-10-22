@@ -88,8 +88,6 @@ This shows a 9V rail, but it works fine on 12V too.
 
 C4 provides DC blocking on the input. This is connected directly to point A of the MOSFET booster, i.e. skipping its own output decoupling cap.
 
-Finally, an 820 Ω / 470 Ω divider between the buffer and the power amp reduces the overall swing.
-
 # Measurement
 
 A 1kHz input tone (cyan) gives clean output maximum swing of nearly 8V pk-pk (yellow) even with a lowly 741 op-amp. A TL071 should do better.
@@ -108,9 +106,7 @@ The same Python tool can grab a comma-separated variable snapshot of the amp out
 
 This shows the 1kHz tone, with the first significant sideband at around 48kHz. This is likely to be an artefact of the DAC of the mobile device producing the tone, not the amp.
 
-The power amp output has some artifacts at around 400kHz. These are at a low level, less than 100mV. This is expected for a Class D output stage.
-
-![Class D artefacts](img/class_D_artefacts.png)
+I found during testing that the buffer output swing was now too much for the power amp input. I replaced R4 with an 820 Ω / 470 Ω divider, which also provided a lower effective output impedance to the power amp.
 
 # Mechanical construction
 
@@ -128,6 +124,11 @@ Power supply connections are in red + black.
 
 The Speakon connector outputs (blue + brown) are wired in parallel, allowing for easy connection of two speakers.
 
+## Power amp artifacts
+
+The power amp output has some artifacts at around 400kHz. These are at a low level, less than 100mV. This is expected for a Class D output stage.
+
+![Class D artefacts](img/class_D_artefacts.png)
 
 # Possible future work
 
