@@ -1,7 +1,6 @@
 +++
 title = 'Battery Powered Bass Amp'
 date = 2026-10-18T16:25:37+01:00
-draft = true
 +++
 
 I've been meaning to write this up for several years now, but I've finally got a version of this project that's worth writing up.
