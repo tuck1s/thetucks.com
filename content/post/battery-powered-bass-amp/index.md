@@ -37,32 +37,34 @@ So, if you want to go louder, it's better to use [more sensitive (efficient) cab
 
 # Batteries
 
-I chose Milwaukee 18v 6Ah battery packs as I already used them in power tools. (Aftermarket cheaper compatible ones are available on eBay, although folks tell me they are not as good as genuine ones). The packs have charge status LEDs. Aftermarket adapters (with trailing wires) are also available on eBay.
+I use Milwaukee 18V battery packs as I already use them for power tools. (Aftermarket cheaper compatible ones are available on eBay, although folks say they are not as good as genuine ones). The packs have charge status LEDs. Aftermarket adapters (with trailing wires) are also available on eBay.
 
 # Power supply
 
-> [!CAUTION] Fuses
-> Fuses should be as close as possible to the source of the power. My build puts the fuses in chassis-mounted holders. It would be better to have them upstream in the battery clips, but I didn't have room. My battery packs have over-current/overload, over-discharge (low voltage), and overheating protection. It's worth checking this on packs you intend to use.
+This allows operation from either one or two 18V batteries.
 
-This allows operation from either one or two 18v batteries.
+![Preamp](img/battery_supply_light.png)
 
 _MORE_
 
+> [!CAUTION] Fuses
+> should be as close as possible to the source of the power. My build has fuses in chassis-mounted holders, which is not ideal. I'm careful when plugging and unplugging the power connectors. It would be better to have them upstream in the battery clips, but I didn't have room. My battery packs have over-current/overload, over-discharge (low voltage), and overheating protection but this does not remove the need for  fuses. I take care when plugging and unplugging the power packs to not allow the barrel connectors to touch metal objects etc.
+
 # Preamp
 
-This is the Jack Orman [AMZ Mosfet Booster](http://www.muzique.com/schem/mosfet.htm) circuit, built on strip board. It's tiny, and light enough that it can just hang off the back of the gain potentiometer inside the case.
+This is the Jack Orman [AMZ MOSFET Booster](http://www.muzique.com/schem/mosfet.htm) circuit, built on strip board. It's tiny, and light enough that it can just hang off the back of the gain potentiometer inside the case.
 
 ![Preamp](img/MOSFET%20preamp.jpeg)
 
-This is mostly unchanged through the versions of this amp. As the project evolved, I added an LM317 regulator to give a steady 12v rail for the preamp, and made R2 adjustable to set the bias point. This adjustment allows for maximum dynamic range, with the onset of clipping at upper and lower output voltage swings to be roughly the same.
+This is mostly unchanged through the versions of this amp. As the project evolved, I added an LM317 regulator to give a steady 12V rail for the preamp, and made R2 adjustable to set the bias point. This adjustment allows for maximum dynamic range, with the onset of clipping at upper and lower output voltage swings to be roughly the same.
 
 # Power amp
 
-TPA3255 module. This can handle supply rail voltages up to 50v, and is happy with 4 ohm loads. It claims to produce 300W+300W, but that's only possible with the maximum 50v supply voltage rails.
+TPA3255 module. This can handle supply rail voltages up to 50V, and is happy with 4 ohm loads. It claims to produce 300W+300W, but that's only possible with the maximum supply voltage.
 
 ![TPA3255 power amp module](img/TPA3255.jpg)
 
-About £23 from [Amazon](https://www.amazon.co.uk/dp/B0CPP72CQR) at time of writing,in 2026 for the ZK-3002 Dollatek branded / Wuhzi Audio board. It's a bit bigger than the previous modules - it's longer, and also higher with a more substantial fan. This required some mechanical rearranging inside the amp box. It came with a [downloadable instruction manual](img/New%20power%20amp%20module%20-%20ZK-3002ins.pdf), English starts on page 11. There's also an English manual I found [here](https://manuals.plus/asin/B0CPP72CQR).
+About £23 from [Amazon](https://www.amazon.co.uk/dp/B0CPP72CQR) at time of writing in 2026 for the ZK-3002 Dollatek branded / Wuhzi Audio board. It's a bit bigger than the previous modules - it's longer, and also higher with a more substantial fan. This required some mechanical rearranging inside the amp box. It came with a [downloadable instruction manual](img/New%20power%20amp%20module%20-%20ZK-3002ins.pdf), English starts on page 11. There's also an English manual I found [here](https://manuals.plus/asin/B0CPP72CQR).
 
 In bridge mode the right and left output channels are parallelled together, allowing the output stages to provide shared current. It supports tougher theoretical speaker loads down to 2 ohms.
 
@@ -74,30 +76,59 @@ Any basic op-amp will work in this circuit; I used a [TL071](https://www.ti.com/
 
 ![TL071 buffer](img/tl071_single_supply_buffer_schematic.svg)
 
-This shows a 9v rail, but it works fine on 12v too.
+This shows a 9V rail, but it works fine on 12V too.
 
-C4 provides DC blocking on the input. This is connected directly to point A of the MOSFET booster, i.e. skipping its own output decoupling cap. 
+C4 provides DC blocking on the input. This is connected directly to point A of the MOSFET booster, i.e. skipping its own output decoupling cap.
 
 # Measurement
 
-A 1KHz input tone (cyan) gives clean output maximum swing of nearly 8v pk-pk (yellow).
+A 1kHz input tone (cyan) gives clean output maximum swing of nearly 8V pk-pk (yellow).
 
-![1KHz input](img/sine_test.png)
+![1kHz input](img/sine_test.png)
 
-Playing the bass guitar open G string on the input shows that there is plenty of gain available from the preamp and buffer.
+Playing the bass guitar open G string shows that there is plenty of gain available from the preamp and buffer.
 
 ![Bass guitar open G](img/bass_open_g.png)
 
 
 Here's a [simple Python program](https://github.com/tuck1s/rigol) used to capture traces from the Rigol scope over the LAN, without that [tedious mucking about with](https://hitchhikers.fandom.com/wiki/Infinite_Improbability_Drive) ancient USB sticks.
 
+The same Python tool can grab a comma-separated variable snapshot of the amp output, enabling us to see a "spectrum analyzer" view of a test tone passing through the preamp and buffer.
+
+![Spectrum](img/1kHz_spectrum.png)
+
+This shows the 1kHz tone, with the first significant sideband at around 48kHz. This is likely to be an artefact of the DAC of the mobile device producing the tone, not the amp.
+
+The power amp output has some artifacts at around 400kHz. These are at a low level, less than 100mV. This is expected for a Class D output stage.
+
+![Spectrum](img/class_D_artefacts.png)
+
+
 # Mechanical construction
 
-_MORE_
+The power supply is built with point-to-point wiring.
+
+The preamp is held by the gain pot.
+
+The buffer is secured with a zip tie (not shown below - photo was taken during initial testing with a 741 op-amp).
+
+The power amp is held with nylon threaded bushes and screws.
+
+![Updated amp with TPA3255 and buffer](img/Updated%20amp%20with%20TPA3255.jpeg)
+
+Power supply connections are in red + black.
+
+The Speakon connector outputs (blue + brown) are wired in parallel, allowing for easy connection of two speakers.
+
+
+# Possible future work
+
+- Rebuild with a single PCB for power supply, regulator, preamp and buffer
+- Better current steering diodes, e.g. MBR10100G. The IN5401s in parallel are not ideal.
 
 # Previous iterations
 
-First version, 2019: TDA7498 module. The module I purchased was limited to 36v absolute max. Fully-charged 18v batteries can reach >20v, so this limited the project to a single battery.
+First version, 2019: TDA7498 module. The module I purchased was limited to 36V absolute max. Fully-charged 18V batteries can reach >20V, so this limited the project to a single battery.
 
 ![TDA7498 power amp module](img/TDA7498.jpg)
 
