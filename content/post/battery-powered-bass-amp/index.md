@@ -12,7 +12,7 @@ I've been meaning to write this up for several years now, but I've finally got a
 The project would also work well for an ordinary (6-string) electric or electro-acoustic guitar, but you might want a preamp with EQ, FX send-return etc. Simplicity, and the need for for bass to have higher power output drove this project direction.
 
 # Requirements
-- Run time  of tens of hours - long enough for multiple gigs between charges
+- Run time of several hours - long enough for multiple gigs between charges
 - Uses easily available Li-Ion battery packs
 - Based on off-the-shelf Class D power amp module
 - Goes loud enough for medium-sized gigs
@@ -53,13 +53,16 @@ Note that if using only one battery, it must be in the "BATT 1" position.
 > [!CAUTION] Fuses
 > should be as close as possible to the source of the power. My build has fuses in chassis-mounted holders, which is not ideal. I'm careful when plugging and unplugging the power connectors. It would be better to have them upstream in the battery clips, but I didn't have room. My battery packs have over-current/overload, over-discharge (low voltage), and overheating protection but this does not remove the need for  fuses. I take care when plugging and unplugging the power packs to not allow the barrel connectors to touch metal objects etc.
 
+
+If Batt 2 trips or is removed, you fall back to 18 V with the amp still working. If Batt 1 trips, everything stops. So the fuller or healthier pack should go in the Batt 1 slot.
+
 # Preamp
 
 This is the Jack Orman [AMZ MOSFET Booster](http://www.muzique.com/schem/mosfet.htm) circuit, built on strip board. It's tiny, and light enough that it can just hang off the back of the gain potentiometer inside the case.
 
 ![Preamp](img/MOSFET%20preamp.jpeg)
 
-This is mostly unchanged through the versions of this amp. As the project evolved, I added an LM317 regulator to give a steady 12V rail for the preamp, and made R2 adjustable to set the bias point. This adjustment allows for maximum dynamic range, with the onset of clipping at upper and lower output voltage swings to be roughly the same.
+This is mostly unchanged through the versions of this amp. As the project evolved, I added an LM317 regulator to give a steady 12V rail for the preamp, and made R2 adjustable to set the bias point. I found that setting R2 to about 116 k gave maximum dynamic range, with the onset of clipping at upper and lower output voltage swings to be roughly the same.
 
 # Power amp
 
@@ -83,9 +86,11 @@ This shows a 9V rail, but it works fine on 12V too.
 
 C4 provides DC blocking on the input. This is connected directly to point A of the MOSFET booster, i.e. skipping its own output decoupling cap.
 
+Finally, an 820 Ω / 470 Ω divider between the buffer and the power amp reduces the overall swing.
+
 # Measurement
 
-A 1kHz input tone (cyan) gives clean output maximum swing of nearly 8V pk-pk (yellow).
+A 1kHz input tone (cyan) gives clean output maximum swing of nearly 8V pk-pk (yellow) even with a lowly 741 op-amp. A TL071 should do better.
 
 ![1kHz input](img/sine_test.png)
 
@@ -127,7 +132,11 @@ The Speakon connector outputs (blue + brown) are wired in parallel, allowing for
 # Possible future work
 
 - Rebuild with a single PCB for power supply, regulator, preamp and buffer
-- Better current steering diodes, e.g. MBR10100G. The IN5401s in parallel are not ideal.
+- Better current steering diodes. The IN5401s in parallel are not ideal. The GI752
+    carries the full load current (about 4 A average at 140 W into 4 Ω) in two-pack mode, so it
+    dissipates around 3.5 W. A silicon diode drops about 0.9 V, so a heat-sinked Schottky would be a
+    better choice (e.g. MBR10100G). The 1N5401 pair only carries the single-pack current, and parallel
+    silicon diodes don’t share evenly.
 
 # Previous iterations
 
