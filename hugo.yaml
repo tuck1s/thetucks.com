@@ -17,6 +17,9 @@ sitemap:
   priority: 0.5
   filename: sitemap.xml
 params:
+  ananke:
+    custom_css:
+      - css/custom.css
   facebook: 'https://www.facebook.com/tuck1s/'
   twitter: 'https://www.twitter.com/tuck1s/'
   linkedin: 'https://www.linkedin.com/in/steventuck/'

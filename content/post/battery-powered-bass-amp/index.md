@@ -1,7 +1,11 @@
-+++
-title = 'Battery Powered Bass Amp'
-date = 2026-10-18T16:25:37+01:00
-+++
+---
+title: 'Battery Powered Bass Amp'
+date: 2026-10-18T16:25:37+01:00
+draft: false
+tags: ['Bass']
+type: post
+featured_image: 'img/Updated amp with TPA3255.jpeg'
+---
 
 I've been meaning to write this up for several years now, but I've finally got a version of this project that's worth writing up.
 
@@ -44,7 +48,7 @@ This allows operation from either one or two 18V batteries.
 
 ![Preamp](img/battery_supply_light.png)
 
-_MORE_
+Note that if using only one battery, it must be in the "BATT 1" position.
 
 > [!CAUTION] Fuses
 > should be as close as possible to the source of the power. My build has fuses in chassis-mounted holders, which is not ideal. I'm careful when plugging and unplugging the power connectors. It would be better to have them upstream in the battery clips, but I didn't have room. My battery packs have over-current/overload, over-discharge (low voltage), and overheating protection but this does not remove the need for  fuses. I take care when plugging and unplugging the power packs to not allow the barrel connectors to touch metal objects etc.

@@ -1,0 +1,39 @@
+{{ define "main" }}
+  {{- with .Content -}}
+  <article class="cf ph3 ph5-l pv3 pv4-l f4 center measure-wide lh-copy nested-links {{ $.Param "text_color" | compare.Default "mid-gray" }}">
+    {{ . }}
+  </article>
+  {{- end -}}
+
+  {{- $mainSections := site.Params.mainSections | compare.Default (collections.Slice "post") -}}
+  {{- $posts := collections.Where site.RegularPages "Section" "in" $mainSections -}}
+
+  <section class="gallery center ph3 pv4">
+    {{- range $posts -}}
+      {{- $page := . -}}
+      {{- /* Thumbnail: featured_image front matter, else the first image used in the post, else the first image in the bundle */ -}}
+      {{- $img := "" -}}
+      {{- with .Params.featured_image -}}
+        {{- $img = $page.Resources.GetMatch . -}}
+      {{- end -}}
+      {{- if not $img -}}
+        {{- range first 1 (findRE `!\[[^\]]*\]\(([^)\s]+)` .RawContent) -}}
+          {{- $path := strings.Replace (replaceRE `^!\[[^\]]*\]\(` "" .) "%20" " " -}}
+          {{- $img = $page.Resources.GetMatch $path -}}
+        {{- end -}}
+      {{- end -}}
+      {{- if not $img -}}
+        {{- $img = index ($page.Resources.ByType "image") 0 -}}
+      {{- end -}}
+      <a class="gallery-item" href="{{ .RelPermalink }}">
+        {{- with $img -}}
+          {{- $thumb := .Fill "480x360 q80" -}}
+          <img src="{{ $thumb.RelPermalink }}" width="{{ $thumb.Width }}" height="{{ $thumb.Height }}" loading="lazy" alt="">
+        {{- else -}}
+          <span class="gallery-placeholder"></span>
+        {{- end -}}
+        <span class="gallery-title">{{ .Title }}</span>
+      </a>
+    {{- end -}}
+  </section>
+{{ end }}
