@@ -73,3 +73,23 @@ article .nested-copy-line-height h6 {
   font-size: 1rem;
   line-height: 1.3;
 }
+
+/* GitHub-style alerts: > [!TIP], > [!CAUTION] etc. */
+.alert {
+  --alert-color: #0969da;
+  margin: 1.5rem 0;
+  padding: 0.25rem 1rem;
+  border-left: 4px solid var(--alert-color);
+  background: color-mix(in srgb, var(--alert-color) 8%, transparent);
+  border-radius: 0 4px 4px 0;
+}
+.alert-title {
+  margin: 0.75rem 0 0.25rem;
+  font-family: -apple-system, BlinkMacSystemFont, "avenir next", avenir, "helvetica neue", helvetica, ubuntu, roboto, noto, "segoe ui", arial, sans-serif;
+  font-weight: 600;
+  color: var(--alert-color);
+}
+.alert-tip { --alert-color: #1a7f37; }
+.alert-important { --alert-color: #8250df; }
+.alert-warning { --alert-color: #9a6700; }
+.alert-caution { --alert-color: #cf222e; }

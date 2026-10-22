@@ -50,8 +50,10 @@ This allows operation from either one or two 18V batteries.
 
 Note that if using only one battery, it must be in the "BATT 1" position.
 
-> [!CAUTION] Fuses
-> should be as close as possible to the source of the power. My build has fuses in chassis-mounted holders, which is not ideal. I'm careful when plugging and unplugging the power connectors. It would be better to have them upstream in the battery clips, but I didn't have room. My battery packs have over-current/overload, over-discharge (low voltage), and overheating protection but this does not remove the need for  fuses. I take care when plugging and unplugging the power packs to not allow the barrel connectors to touch metal objects etc.
+> [!CAUTION] Fuse placement
+> Fuses should be as close as possible to the source of the power. My build has fuses in chassis-mounted holders, which is not ideal. I'm careful when plugging and unplugging the power connectors. It would be better to have them upstream in the battery clips, but I didn't have room. My battery packs have over-current/overload, over-discharge (low voltage), and overheating protection but this does not remove the need for  fuses. I take care when plugging and unplugging the power packs to not allow the barrel connectors to touch metal objects etc.
+>
+> Check your fuses are rated for DC applications.
 
 
 If Batt 2 trips or is removed, you fall back to 18 V with the amp still working. If Batt 1 trips, everything stops. So the fuller or healthier pack should go in the Batt 1 slot.
@@ -98,7 +100,6 @@ Playing the bass guitar open G string shows that there is plenty of gain availab
 
 ![Bass guitar open G](img/bass_open_g.png)
 
-
 Here's a [simple Python program](https://github.com/tuck1s/rigol) used to capture traces from the Rigol scope over the LAN, without that [tedious mucking about with](https://hitchhikers.fandom.com/wiki/Infinite_Improbability_Drive) ancient USB sticks.
 
 The same Python tool can grab a comma-separated variable snapshot of the amp output, enabling us to see a "spectrum analyzer" view of a test tone passing through the preamp and buffer.
@@ -109,8 +110,7 @@ This shows the 1kHz tone, with the first significant sideband at around 48kHz. T
 
 The power amp output has some artifacts at around 400kHz. These are at a low level, less than 100mV. This is expected for a Class D output stage.
 
-![Spectrum](img/class_D_artefacts.png)
-
+![Class D artefacts](img/class_D_artefacts.png)
 
 # Mechanical construction
 
